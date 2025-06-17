@@ -2,12 +2,12 @@
 import { db } from "@/db";
 export default async function Home() {
 
-  const iteams = await db.query.users.findMany({})
+  const rooms = await db.query.room.findMany({})
   return (
     <div >
-       {iteams.map((item) => {
-        return <div key={item.id} className="flex items-center justify-center">
-          {item.name }
+       {rooms.map((room) => {
+        return <div key={room.name} className="flex items-center justify-center">
+          {room.name }
           
         </div>
        })}
