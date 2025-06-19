@@ -21,6 +21,7 @@ const formSchema = z.object({
   name: z.string().min(3).max(50),  
    description: z.string().min(1).max(250),
    githubRepo: z.string().min(1).max(50),
+   language: z.string().min(1).max(50),
 });
 
 export  function CreateRoomForm() {
@@ -33,6 +34,7 @@ export  function CreateRoomForm() {
       name: "",
       description: "",
       githubRepo: "",
+      language: "",
     },
 })
 
@@ -102,12 +104,12 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
           name="language"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Primary Programming Language </FormLabel>
+              <FormLabel>Tags  </FormLabel>
               <FormControl>
-                <Input placeholder="Room name" {...field} />
+                <Input placeholder="e.g. TypeScript" {...field} />
               </FormControl>
               <FormDescription>
-               List the  programming language you are working with 
+               List the  programming language, framework you are working on so that others can find you
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -123,5 +125,5 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
 
 }
 
- 
+
 
