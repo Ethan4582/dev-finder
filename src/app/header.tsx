@@ -22,7 +22,7 @@ function AcoountDropdown() {
    // this hwo we check id use is logged in next-auth
     const session =useSession(); 
 
-const isLoggedIn=!!session.data;  
+// const isLoggedIn=!!session.data;  
 
   return (
     <DropdownMenu>
@@ -34,14 +34,15 @@ const isLoggedIn=!!session.data;
             </Avatar>
             {session.data?.user?.name}</Button></DropdownMenuTrigger>
       <DropdownMenuContent>
-          {isLoggedIn?(
-             <DropdownMenuItem   onClick={() => signOut()}> 
+       
+             <DropdownMenuItem  
+              onClick={() => signOut({
+                callbackUrl: "/" // Redirect to home after sign out
+             }
+             )}
+             > 
               <LogOutIcon className="mr-2 "/>   Sign Out
                </DropdownMenuItem>
-            ):(
-
-             <DropdownMenuItem   onClick={() => signIn("google")}>   <LogInIcon  className="mr-2 " /> Sign In</DropdownMenuItem>
-            ) }
        
       </DropdownMenuContent>
     </DropdownMenu>
@@ -65,10 +66,19 @@ export function Header() {
          </Link>
 
          <div className="flex items-center gap-4">
-            <AcoountDropdown />
+            {session.data &&  <AcoountDropdown />}
+                     {!session.data && (
+            <Button 
+               variant="link" 
+               onClick={() => signIn()}>
+               <LogInIcon className="mr-2" />
+               Sign In 
+            </Button>
+            )}
             <ModeToggle />
          </div>
       </header>
    )
 }
+
 

@@ -14,6 +14,7 @@ import { Room } from "@/db/schema";
 import { GithubIcon } from "lucide-react";
 import { getRooms } from "@/data-access/room";
 import TagList from "@/components/tag-list";
+import SearchBar from "./searchbar";
 
 
 function RoomCard({ room }: { room: Room }) {
@@ -56,9 +57,9 @@ function RoomCard({ room }: { room: Room }) {
 </Card>
   );
 }
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: { search?: string } }) {
 
-  const rooms = await getRooms(); // this enruse the dynamic update on the page
+  const rooms = await getRooms(searchParams?.search); // Pass search param
   return (
     <div className="min-h-screen p-16">
       <div className="flex justify-between items-center">
@@ -69,6 +70,7 @@ export default async function Home() {
           </Link>
         </Button>
       </div>
+      <SearchBar/>
       <div className="mt-8 grid grid-cols-3 gap-4 ">
         {rooms.map((room) => (
           <RoomCard key={String(room.id)} room={room} />
