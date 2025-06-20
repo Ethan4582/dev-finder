@@ -58,8 +58,8 @@ function RoomCard({ room }: { room: Room }) {
   );
 }
 export default async function Home({ searchParams }: { searchParams: { search?: string } }) {
-
-  const rooms = await getRooms(searchParams?.search); // Pass search param
+//! some issue with searchParams in nextjs 14, it is not working as expected
+  const rooms = await getRooms(searchParams?.search); 
   return (
     <div className="min-h-screen p-16">
       <div className="flex justify-between items-center">
