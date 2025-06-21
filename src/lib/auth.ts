@@ -28,21 +28,32 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ token, account, user }) {
+      // Initial sign-in
+      if (account && user) {
+        return {
+          ...token,
+          id: user.id,
+          picture: user.image
+        };
+      }
+      
+      // Return previous token if the user exists in DB
       const dbUser = await db.query.users.findFirst({
         where: (users, { eq }) => eq(users.email, token.email!),
       });
 
-      if (!dbUser) {
-        throw new Error("no user with email found");
+      if (dbUser) {
+        return {
+          id: dbUser.id,
+          name: dbUser.name,
+          email: dbUser.email,
+          picture: dbUser.image,
+        };
       }
-
-      return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image,
-      };
+      
+      // Fall back to the existing token if DB lookup fails
+      return token;
     },
     async session({ token, session }) {
       if (token) {
@@ -70,6 +81,7 @@ export const authOptions = {
     },
   },
   trustHost: true,
+  debug: true, // Add this to see detailed errors
 } satisfies AuthOptions;
 
 
