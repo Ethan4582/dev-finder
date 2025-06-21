@@ -1,5 +1,10 @@
 # DevRooms
-DevRooms enables developers to collaborate in real-time through shared coding environments with integrated video conferencing. Create rooms, pair program, and debug together - all within a single platform.
+
+DevRooms enables developers to collaborate in real-time through shared coding environments with integrated video conferencing. Create rooms, pair program, and debug together – all within a single platform.
+
+## 📺 Demo Video
+
+[![DevRooms Demo](https://img.youtube.com/vi/ROX6cwoPXjg/0.jpg)](https://youtu.be/ROX6cwoPXjg)
 
 
 ## ✨ Features
