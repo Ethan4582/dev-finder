@@ -4,7 +4,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-
 import {
   Form,
   FormControl,
@@ -17,18 +16,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { createRoomAction } from "./actions";
 import { useRouter } from 'next/navigation';
+import { toast } from "sonner";
+
 const formSchema = z.object({
   name: z.string().min(3).max(50),  
-   description: z.string().min(1).max(250),
-   githubRepo: z.string().min(1).max(100),
-   language: z.string().min(1).max(50),
+  description: z.string().min(1).max(250),
+  githubRepo: z.string().min(1).max(100),
+  language: z.string().min(1).max(50),
 });
 
-export  function CreateRoomForm() {
+export function CreateRoomForm() {
+  const router = useRouter();
 
-   const router = useRouter();
- 
-   const form= useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -36,14 +36,25 @@ export  function CreateRoomForm() {
       githubRepo: "",
       language: "",
     },
-})
+  });
 
-  
-async function onSubmit(values: z.infer<typeof formSchema>) {
-  // invoke your create room action here and redicrt to home page
-  await createRoomAction(values);
-  router.push("/");
-}
+ async function onSubmit(values: z.infer<typeof formSchema>) {
+  try {
+    const roomId = await createRoomAction(values);
+    toast("Room Created", {
+      description: "Your room was successfully created",
+    });
+    setTimeout(() => {
+      router.push(`/rooms/${roomId}`);
+    }, 1200);
+  } catch (error) {
+    toast("Error", {
+      description: "Failed to create room",
+      variant: "destructive",
+    });
+  }
+
+  }
 
   return (
     <Form {...form}>

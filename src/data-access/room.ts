@@ -52,7 +52,7 @@ export async function getUserRooms() {
 
 export async function deleteRoom(roomId: string) {
   await db.delete(room).where(eq(room.id, roomId));
-}
+}  
 
 
 export async function createRoom(

@@ -23,5 +23,5 @@ export async function editRoomAction(roomData: Omit<Room, "userId">) {
 
   revalidatePath("/your-rooms");
   revalidatePath(`/edit-room/${roomData.id}`);
-  redirect("/your-rooms");
+
 }

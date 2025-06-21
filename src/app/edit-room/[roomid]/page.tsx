@@ -6,6 +6,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Loader2 } from "lucide-react";
 
+
 export default async function EditRoomPage({
   params,
 }: {
@@ -33,6 +34,7 @@ export default async function EditRoomPage({
     <div className="flex h-full w-full items-center justify-center p-4">
       <div className="flex flex-col items-center justify-center space-y-4 w-full max-w-md">
         <h1 className="text-2xl font-bold">Edit Room</h1>
+        
         <EditRoomForm room={room} />
       </div>
     </div>

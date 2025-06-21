@@ -15,47 +15,49 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { editRoomAction } from "./actions";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Room } from "@/db/schema";
 import { toast } from "sonner";
-
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().min(1).max(250),
   githubRepo: z.string().min(1).max(50),
-  language: z.string().min(1).max(50), 
+  language: z.string().min(1).max(50),
 });
 
 export function EditRoomForm({ room }: { room: Room }) {
- 
-const params = useParams();
-const roomid = params.roomid as string;
-  
+  const params = useParams();
+  const router = useRouter();
+  const roomid = params.roomid as string;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: room?.name as string || "",
       description: room?.description as string || "",
       githubRepo: room?.githubRepo as string || "",
-      language: room?.language as string || "", 
+      language: room?.language as string || "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await editRoomAction({
-        id: roomid, // Use lowercase roomid to match URL parameter
+        id: roomid,
         ...values,
       });
-      
-      toast({
-        title: "Room Updated",
+
+      toast("Room Updated", {
         description: "Your room was successfully updated",
       });
+
+      // Redirect after a short delay so user sees the toast
+      setTimeout(() => {
+        router.push("/your-rooms");
+      }, 1200);
     } catch (error) {
-      toast({
-        title: "Error",
+      toast("Error", {
         description: "Failed to update room",
         variant: "destructive",
       });

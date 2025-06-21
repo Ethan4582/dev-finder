@@ -87,7 +87,7 @@ export function DevfinderVideo({ room }: { room: Room }) {
         .catch(() => {});
     }
 
-    router.push("/");
+    router.push("/browse");
   };
 
   if (loading || leaving || !client || !call) {

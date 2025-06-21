@@ -5,7 +5,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Provider } from "@/app/provider";
 import { Header } from"./header";
 import { ThemeProvider } from "@/components/theme-provider";
-
+import { Toaster } from "@/components/ui/sonner"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,6 +43,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </Provider>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
