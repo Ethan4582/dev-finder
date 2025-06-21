@@ -2,7 +2,6 @@ import { unstable_noStore } from 'next/cache';
 import { db } from '../db';
 import { Room, room } from '../db/schema'; 
 import { eq } from 'drizzle-orm'; 
-import { useSession } from 'next-auth/react';
 import { authOptions } from "@/lib/auth"; 
 
 

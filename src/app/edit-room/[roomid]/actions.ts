@@ -4,7 +4,7 @@ import { editRoom, getRoom } from "@/data-access/room";
 import { Room } from "@/db/schema";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+
 
 export async function editRoomAction(roomData: Omit<Room, "userId">) {
   const session = await getSession();

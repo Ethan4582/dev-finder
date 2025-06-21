@@ -12,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Room } from "@/db/schema";
-import { GithubIcon } from "lucide-react";
 import TagList from "@/components/tag-list";
 
 export default function RoomCard({ room }: { room: Room }) {

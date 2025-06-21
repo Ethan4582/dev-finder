@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Room } from "@/db/schema";
-import { GithubIcon, PenBoxIcon, TrashIcon } from "lucide-react";
+import {  PenBoxIcon, TrashIcon } from "lucide-react";
 import TagList from "@/components/tag-list";
 import {  deleteUserRoom } from "./action"; 
 import {

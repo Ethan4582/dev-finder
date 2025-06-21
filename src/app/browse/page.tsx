@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { GithubIcon } from "lucide-react";
 import { getRooms } from "@/data-access/room";
 import SearchBar from "./searchbar";
 import RoomCard from "./room-card";
