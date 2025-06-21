@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 export default async function EditRoomPage({
   params,
 }: {
-  params: { roomid: string }; 
+  params: { roomid: string };
 }) {
   unstable_noStore();
   

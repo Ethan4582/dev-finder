@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { searchParams as getSearchParams } from "next/headers";
 import { getRooms } from "@/data-access/room";
 import SearchBar from "./searchbar";
 import RoomCard from "./room-card";
@@ -10,21 +9,19 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
-export default async function Home() {
-//! some issue with searchParams in nextjs 14, it is not working as expected
- 
- unstable_noStore(); 
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  unstable_noStore();
 
   const session = await getServerSession(authOptions);
-   
-     if (!session) {
-      
-       return redirect(`/api/auth/signin?callbackUrl=/browse`);
-     }
+  if (!session) {
+    return redirect(`/api/auth/signin?callbackUrl=/browse`);
+  }
 
-
-  const searchParams = await getSearchParams();
-  const search = searchParams.get("search") || undefined;
+  const search = searchParams.search?.toString();
   const rooms = await getRooms(search);
 
   return (
@@ -32,38 +29,30 @@ export default async function Home() {
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bold mb-4">Find Dev Room</h1>
         <Button asChild>
-          <Link href="/create-room">
-            Create Room
-          </Link>
+          <Link href="/create-room">Create Room</Link>
         </Button>
       </div>
-      <SearchBar/>
-     
+      <SearchBar />
 
-            <div className="mt-8 grid grid-cols-3 p-10 gap-4">
-          {rooms.length === 0 ? (
-            <div className="col-span-3 text-center text-white-500">
-              <Image
-                src="/no-data_.svg"
-                alt="No rooms found"
-                width={200}
-                height={200}
-                className="mx-auto mb-4"
-              />
-              <p>No rooms Yet!</p>
-                <Button asChild className="mt-4">
-          <Link href="/create-room">
-            Create Room
-          </Link>
-        </Button>
-            </div>
-          ) : (
-            rooms.map((room) => (
-              <RoomCard key={String(room.id)} room={room} />
-            ))
-
-          )}
-        </div>
+      <div className="mt-8 grid grid-cols-3 p-10 gap-4">
+        {rooms.length === 0 ? (
+          <div className="col-span-3 text-center text-white-500">
+            <Image
+              src="/no-data_.svg"
+              alt="No rooms found"
+              width={200}
+              height={200}
+              className="mx-auto mb-4"
+            />
+            <p>No rooms Yet!</p>
+            <Button asChild className="mt-4">
+              <Link href="/create-room">Create Room</Link>
+            </Button>
+          </div>
+        ) : (
+          rooms.map((room) => <RoomCard key={String(room.id)} room={room} />)
+        )}
+      </div>
     </div>
   );
 }
