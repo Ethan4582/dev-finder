@@ -4,7 +4,7 @@ DevRooms enables developers to collaborate in real-time through shared coding en
 
 ## 📺 Demo Video
 
-[![DevRooms Demo](https://img.youtube.com/vi/ROX6cwoPXjg/0.jpg)](https://youtu.be/ROX6cwoPXjg)
+[![DevRooms Demo](https://img.youtube.com/vi/REN1kfR9sdg/0.jpg)](https://youtu.be/REN1kfR9sdg)
 
 
 ## ✨ Features
