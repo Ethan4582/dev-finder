@@ -102,48 +102,45 @@ function AccountDropdown() {
 
 
 export function Header() {
-      
-   // this hwo we check id use is logged in next-auth
-   const session =useSession();
-   const isLoggedIn=!!session.data;
+   const session = useSession();
+   const isLoggedIn = !!session.data;
 
    return (
-      <header className="bg-gray-200 dark:bg-gray-900 flex items-center justify-between p-3 text-gray-900 dark:text-white relative">
+      <header className="bg-slate-100 dark:bg-slate-900 flex items-center justify-between p-3 text-slate-900 dark:text-white relative border-b border-slate-200 dark:border-slate-800">
          <Link href="/" className="flex items-center gap-2">
             <Image
-            src="/logo.png"
-            alt="Dev Finder Logo"
-            width={32}
-            height={32}
+              src="/logo.png"
+              alt="Dev Finder Logo"
+              width={32}
+              height={32}
             />
-            <span>Dev Rooms</span>
+            <span className="font-semibold">Dev Rooms</span>
          </Link>
 
          <nav>
             {isLoggedIn && (
-               
-                <ul className="flex items-center gap-4">
+               <ul className="flex items-center gap-4">
                   <Link href="/browse" className="hover:underline">
                      Browse
                   </Link>
-
                   <Link href="/your-rooms" className="hover:underline">
                      Your Rooms
                   </Link>
-            </ul>
-         )}
-           
+               </ul>
+            )}
          </nav>
 
          <div className="flex items-center gap-4">
-            {session.data &&  < AccountDropdown />}
-                     {!session.data && (
-            <Button 
-               variant="link" 
-               onClick={() => signIn()}>
-               <LogInIcon className="mr-2" />
-               Sign In 
-            </Button>
+            {session.data && <AccountDropdown />}
+            {!session.data && (
+               <Button 
+                  variant="link" 
+                  onClick={() => signIn()}
+                  className="text-slate-900 dark:text-white"
+               >
+                  <LogInIcon className="mr-2" />
+                  Sign In 
+               </Button>
             )}
             <ModeToggle />
          </div>
