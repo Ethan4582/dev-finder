@@ -38,7 +38,6 @@ export const authOptions = {
         };
       }
       
-      // Return previous token if the user exists in DB
       const dbUser = await db.query.users.findFirst({
         where: (users, { eq }) => eq(users.email, token.email!),
       });
@@ -52,7 +51,7 @@ export const authOptions = {
         };
       }
       
-      // Fall back to the existing token if DB lookup fails
+
       return token;
     },
     async session({ token, session }) {
