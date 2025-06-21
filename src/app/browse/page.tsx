@@ -1,6 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { searchParams as getSearchParams } from "next/headers";
 import { getRooms } from "@/data-access/room";
 import SearchBar from "./searchbar";
 import RoomCard from "./room-card";
@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
-export default async function Home({ searchParams }: { searchParams: { search?: string } }) {
+export default async function Home() {
 //! some issue with searchParams in nextjs 14, it is not working as expected
  
  unstable_noStore(); 
@@ -23,7 +23,10 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
      }
 
 
-  const rooms = await getRooms(searchParams?.search); 
+  const searchParams = await getSearchParams();
+  const search = searchParams.get("search") || undefined;
+  const rooms = await getRooms(search);
+
   return (
     <div className="min-h-screen p-16">
       <div className="flex justify-between items-center">
