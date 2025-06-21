@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import RoomCard from "../browse/room-card";
 
 export default async function YourRoomPage() {
     unstable_noStore(); 

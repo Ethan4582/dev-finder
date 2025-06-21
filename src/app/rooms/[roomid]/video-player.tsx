@@ -33,9 +33,10 @@ export function DevfinderVideo({ room }: { room: Room }) {
     if (!session || !room || typeof room.id !== "string") return;
 
     let active = true;
+    let localCall: Call | null = null;
+    let localClient: StreamVideoClient | null = null;
 
     const setup = async () => {
-      const token = await generateTokenAction();
       const userId = session.user.id;
 
       const client = new StreamVideoClient({
@@ -56,16 +57,19 @@ export function DevfinderVideo({ room }: { room: Room }) {
       setClient(client);
       setCall(call);
       setLoading(false);
+
+      localCall = call;
+      localClient = client;
     };
 
     setup();
 
     return () => {
       active = false;
-      if (call && client) {
-        call
+      if (localCall && localClient) {
+        localCall
           .leave()
-          .then(() => client.disconnectUser())
+          .then(() => localClient.disconnectUser())
           .catch(console.error);
       }
     };

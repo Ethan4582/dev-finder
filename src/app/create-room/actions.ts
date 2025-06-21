@@ -2,7 +2,7 @@
 
 import { createRoom } from "@/data-access/room";
 
-import { room, Room } from "@/db/schema";
+import {  Room } from "@/db/schema";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 

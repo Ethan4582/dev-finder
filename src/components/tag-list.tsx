@@ -11,6 +11,8 @@ type TagListProps = {
 };
 
 const TagList: React.FC<TagListProps> = ({ languages, className }) => {
+    const router = useRouter();
+
   let tagArray: string[] = [];
 
   if (typeof languages === "string") {
@@ -20,11 +22,10 @@ const TagList: React.FC<TagListProps> = ({ languages, className }) => {
   }
 
   if (!tagArray || tagArray.length === 0) return null;
-  const router = useRouter();
 
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
-      {tagArray.map((lang, idx) => (
+      {tagArray.map((lang) => (
                 
                 <Button
         className={cn(
