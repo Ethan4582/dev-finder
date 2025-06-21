@@ -1,5 +1,3 @@
-
-
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {  getUserRooms } from "@/data-access/room";
@@ -8,7 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import RoomCard from "../browse/room-card";
+import UserRoomCard from "./user-room-card";
 
 export default async function YourRoomPage() {
     unstable_noStore(); 
@@ -55,7 +53,7 @@ export default async function YourRoomPage() {
             </div>
           ) : (
             rooms.map((room) => (
-              <RoomCard key={String(room.id)} room={room} />
+              <UserRoomCard key={String(room.id)} room={room} />
             ))
 
           )}

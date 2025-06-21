@@ -15,9 +15,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { editRoomAction } from "./actions";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, redirect, useRouter } from "next/navigation";
 import { Room } from "@/db/schema";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -27,8 +28,13 @@ const formSchema = z.object({
 });
 
 export function EditRoomForm({ room }: { room: Room }) {
+  const { data: session } = useSession();
+
+  if (!session) {
+    return redirect(`/api/auth/signin?callbackUrl=/create-room`);
+  }
+
   const params = useParams();
-  const router = useRouter();
   const roomid = params.roomid as string;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -41,21 +47,20 @@ export function EditRoomForm({ room }: { room: Room }) {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       await editRoomAction({
         id: roomid,
         ...values,
       });
-
       toast("Room Updated", {
         description: "Your room was successfully updated",
       });
-
-      // Redirect after a short delay so user sees the toast
       setTimeout(() => {
         router.push("/your-rooms");
-      }, 1200);
+      }, 1000); // Give the toast time to show
     } catch (error) {
       toast("Error", {
         description: "Failed to update room",
