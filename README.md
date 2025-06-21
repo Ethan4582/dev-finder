@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DevRooms
+DevRooms enables developers to collaborate in real-time through shared coding environments with integrated video conferencing. Create rooms, pair program, and debug together - all within a single platform.
 
-## Getting Started
 
-First, run the development server:
+## ✨ Features
 
+### Core Functionality
+- **Real-time Code Collaboration**
+  - Shared code editor with syntax highlighting
+  - Live cursor positions and code changes
+- **Video Conferencing**
+  - Integrated video/audio calls with screen sharing
+  - Powered by GetStream.io 
+- **Room Management**
+  - Create/update/delete coding rooms
+  - Set primary programming languages
+  - GitHub repository integration
+
+### Developer Experience
+- **Authentication**
+  - Google OAuth via NextAuth
+  - Session management with JWT
+- **Search & Discovery**
+  - Filter rooms by programming language
+  - Tag-based search system
+- **Responsive Design**
+  - Fully responsive UI for all devices
+  - Dark/light mode toggle
+
+## 🛠 Tech Stack
+
+### Frontend
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Shadcn UI
+- **Animation**: Framer Motion
+- **State Management**: Zustand
+
+### Backend
+- **Database**: PostgreSQL (NeonDB)
+- **ORM**: Prisma
+- **Auth**: NextAuth
+- **Video**: GetStream SDK
+
+### Infrastructure
+- **Deployment**: Vercel
+- **CI/CD**: GitHub Actions
+- **Database Hosting**: Neon.tech
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL database (NeonDB recommended)
+- Google OAuth credentials
+- GetStream account
+
+### Installation
 ```bash
+# Clone repository
+git clone https://github.com/yourusername/devrooms.git
+cd devrooms
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
