@@ -69,6 +69,7 @@ export const authOptions = {
       },
     },
   },
+  trustHost: true,
 } satisfies AuthOptions;
 
 
