@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^1.9.1",
     "@hookform/resolvers": "^5.1.1",
+    "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-label": "^2.1.7",
@@ -21,16 +22,20 @@
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.2",
     "lucide-react": "^0.516.0",
+    "net": "^1.0.2",
     "next": "15.3.3",
     "next-auth": "^4.24.11",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.8.16",
+    "perf_hooks": "^0.0.1",
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
+    "sonner": "^2.0.5",
     "stream-chat": "^9.7.0",
     "tailwind-merge": "^3.3.1",
+    "tls": "^0.0.1",
     "zod": "^3.25.67"
   },
   "devDependencies": {

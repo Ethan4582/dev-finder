@@ -17,6 +17,7 @@ import { LogInIcon, LogOutIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image";
 import Link from "next/link";
+import { is } from "drizzle-orm";
  
 function AcoountDropdown() {
    // this hwo we check id use is logged in next-auth
@@ -52,9 +53,10 @@ export function Header() {
       
    // this hwo we check id use is logged in next-auth
    const session =useSession();
+   const isLoggedIn=!!session.data;
 
    return (
-      <header className="bg-gray-200 dark:bg-gray-900 flex items-center justify-between p-3 text-gray-900 dark:text-white">
+      <header className="bg-gray-200 dark:bg-gray-900 flex items-center justify-between p-3 text-gray-900 dark:text-white relative">
          <Link href="/" className="flex items-center gap-2">
             <Image
             src="/logo.png"
@@ -64,6 +66,22 @@ export function Header() {
             />
             <span>Dev Rooms</span>
          </Link>
+
+         <nav>
+            {isLoggedIn && (
+               
+                <ul className="flex items-center gap-4">
+                  <Link href="/browse" className="hover:underline">
+                     Browse
+                  </Link>
+
+                  <Link href="/your-rooms" className="hover:underline">
+                     Your Rooms
+                  </Link>
+            </ul>
+         )}
+           
+         </nav>
 
          <div className="flex items-center gap-4">
             {session.data &&  <AcoountDropdown />}

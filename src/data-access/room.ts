@@ -1,9 +1,17 @@
 import { unstable_noStore } from 'next/cache';
 import { db } from '../db';
-import { or, like } from 'drizzle-orm';
+import { Room, room } from '../db/schema'; 
+import { eq } from 'drizzle-orm'; 
+import { useSession } from 'next-auth/react';
+import { authOptions } from "@/lib/auth"; 
+
+
+import { getServerSession } from "next-auth";
 
 export async function getRooms(search?: string) {
-  unstable_noStore(); // This ensures that the data is not cached and always fetched fresh
+   unstable_noStore(); 
+
+
   if (search && search.trim() !== "") {
     const rooms = await db.query.room.findMany({
       where: (room, { like, or }) =>
@@ -14,17 +22,55 @@ export async function getRooms(search?: string) {
           like(room.githubRepo, `%${search}%`)
         ),
     });
-    return rooms;
+  return rooms;
   }
-  // No search: return all rooms
+ 
   return await db.query.room.findMany({});
 }
 
 export async function getRoom(roomId: string) {
-   unstable_noStore(); // This ensures that the data is not cached and always fetched fresh
+   unstable_noStore(); 
+  if (!roomId || roomId.trim() === "") {
+    throw new Error("Room ID is required");
+  }
   return await db.query.room.findFirst({
-   where: (room, { eq }) => eq(room.id, roomId),
-   //  where: eq(room.id, roomId),
+    where: (room, { eq }) => eq(room.id, roomId),
   });
+}
 
+export async function getUserRooms() {
+ 
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("User not authenticated");
+  }
+  return await db.query.room.findMany({
+    where: (room, { eq }) => eq(room.userId, session.user.id),
+  });
+}
+
+
+export async function deleteRoom(roomId: string) {
+  await db.delete(room).where(eq(room.id, roomId));
+}
+
+
+export async function createRoom(
+  roomData: Omit<Room, "id" | "userId">,
+  userId: string
+) {
+  const inserted = await db
+    .insert(room)
+    .values({ ...roomData, userId })
+    .returning();
+  return inserted[0];
+}
+
+export async function editRoom(roomData: Room) {
+  const updated = await db
+    .update(room)
+    .set(roomData)
+    .where(eq(room.id, roomData.id))
+    .returning();
+  return updated[0];
 }
