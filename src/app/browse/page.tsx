@@ -8,12 +8,9 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { headers } from "next/headers";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Record<string, string | string[] | undefined>;
-}) {
+export default async function Browse() {
   unstable_noStore();
 
   const session = await getServerSession(authOptions);
@@ -21,7 +18,11 @@ export default async function Home({
     return redirect(`/api/auth/signin?callbackUrl=/browse`);
   }
 
-  const search = searchParams.search?.toString();
+  // Get search params from URL using headers
+  const headersList = headers();
+  const url = new URL(headersList.get("x-url") || "/");
+  const search = url.searchParams.get("search") || undefined;
+
   const rooms = await getRooms(search);
 
   return (
